@@ -8,7 +8,7 @@ dataset_name = "stas/openwebtext-10k"
 name = dataset_name.split('/')[-1]
 ds = load_dataset(dataset_name, split='train')
 enc = tiktoken.get_encoding("gpt2")
-tokenized_ds = enc.encode_ordinary(ds["text"], padding="max_length", truncation=True, max_length=512)
+tokenized_ds = enc.encode_ordinary(ds["text"])
 
 # encode with tiktoken gpt2 bpe
 validation_fraction = 0.1
