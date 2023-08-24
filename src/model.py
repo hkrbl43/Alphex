@@ -46,7 +46,7 @@ model_configs = {
 
 
 class Alphex(nn.Module):
-    def __init__(self, config: LLaMAConfig) -> None:
+    def __init__(self, config: Config) -> None:
         super().__init__()
         assert config.padded_vocab_size is not None
         self.config = config
