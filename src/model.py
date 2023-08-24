@@ -143,7 +143,7 @@ class Alphex(nn.Module):
 
 
 class Block(nn.Module):
-    def __init__(self, config: LLaMAConfig) -> None:
+    def __init__(self, config: Config) -> None:
         super().__init__()
         self.rms_1 = RMSNorm(config.n_embd)
         self.attn = CausalSelfAttention(config)
