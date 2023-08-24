@@ -38,7 +38,7 @@ class Config:
 
 
 model_configs = {
-    "124M": dict(n_layer=12, n_head=12, n_embd=768)
+    "124M": dict(n_layer=12, n_head=12, n_embd=768),
     "7B": dict(n_layer=32, n_head=32, n_embd=4096),
     "13B": dict(n_layer=40, n_head=40, n_embd=5120)
 }
