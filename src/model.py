@@ -166,7 +166,7 @@ class Block(nn.Module):
 
 
 class CausalSelfAttention(nn.Module):
-    def __init__(self, config: LLaMAConfig) -> None:
+    def __init__(self, config: Config) -> None:
         super().__init__()
         assert config.n_embd % config.n_head == 0
 
