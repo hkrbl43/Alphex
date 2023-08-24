@@ -8,6 +8,8 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 from typing_extensions import Self
+wd = Path(__file__).parent.parent.resolve()
+sys.path.append(str(wd))
 
 from src.utils import find_multiple
 
