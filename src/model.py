@@ -235,7 +235,7 @@ class CausalSelfAttention(nn.Module):
 
 
 class MLP(nn.Module):
-    def __init__(self, config: LLaMAConfig) -> None:
+    def __init__(self, config: Config) -> None:
         super().__init__()
         hidden_dim = 4 * config.n_embd
         n_hidden = int(2 * hidden_dim / 3)
