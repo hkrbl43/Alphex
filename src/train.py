@@ -21,7 +21,7 @@ from src.model import Block, Alphex, Config
 from src.utils import save_model_checkpoint
 
 
-out_dir = "out/training"
+out_dir = ""
 eval_interval = 2000
 eval_iters = 200
 log_interval = 1
@@ -31,7 +31,7 @@ log_interval = 1
 # Hyperparameters
 learning_rate = 6e-4
 batch_size = 2
-max_iters = 600000
+max_iters = 10000
 weight_decay = 1e-1
 beta1 = 0.9
 beta2 = 0.95
@@ -91,7 +91,7 @@ def train(
             val_loss = validate(fabric, model, val_data)
             fabric.print(f"step {iter_num}: val loss {val_loss:.4f}")
             fabric.print(f"Saving checkpoint to {out_dir}")
-            save_model_checkpoint(fabric, model, os.path.join(out_dir, f"iter-{iter_num:06d}-ckpt.pth"))
+            save_model_checkpoint(fabric, model, os.path.join(out_dir, f"Alphex-124M.pth"))
 
         t0 = time.time()
 
