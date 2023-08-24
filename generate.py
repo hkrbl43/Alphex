@@ -87,3 +87,45 @@ def generate(
             return idx[:input_pos]  # include the EOS token
 
     return idx
+def main(
+    prompt: str = "Hello, my name is",
+    *,
+    num_samples: int = 1,
+    max_new_tokens: int = 50,
+    top_k: int = 200,
+    temperature: float = 0.8,
+    quantize: Optional[str] = None,
+) -> None:
+    checkpoint_path = "Alphex-124M.pth"
+    
+    precision = "bf16-true" if torch.cuda.is_available() and torch.cuda.is_bf16_supported() else "32-true"
+    fabric = L.Fabric(devices=1, precision=precision)
+
+    print("Loading model ...", file=sys.stderr)
+    t0 = time.time()
+    with fabric.init_module(empty_init=True), quantization(mode=quantize):
+            model = Alphex.from_name("124M")
+
+        model.load_state_dict(checkpoint)
+   
+    print(f"Time to load model: {time.time() - t0:.02f} seconds.", file=sys.stderr)
+
+    model.eval()
+    model = fabric.setup(model)
+
+    tokenizer = tiktoken.get_encoding("gpt2")
+    encoded = tokenizer.encode(prompt, device = fabric.device)
+    prompt_length = encoded.size(0)
+
+    L.seed_everything(1234)
+    for i in range(num_samples):
+        t0 = time.perf_counter()
+        y = generate(model, encoded, max_new_tokens, temperature=temperature, top_k=top_k)
+        t = time.perf_counter() - t0
+
+        model.reset_cache()
+        print(tokenizer.decode(y))
+        tokens_generated = y.size(0) - prompt_length
+        print(f"Time for inference {i + 1}: {t:.02f} sec total, {tokens_generated / t:.02f} tokens/sec", file=sys.stderr)
+    if fabric.device.type == "cuda":
+        print(f"Memory used: {torch.cuda.max_memory_reserved() / 1e9:.02f} GB", file=sys.stderr)
