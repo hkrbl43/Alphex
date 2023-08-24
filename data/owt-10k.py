@@ -18,7 +18,8 @@ if __name__ == '__main__':
     dataset = load_dataset("stas/openwebtext-10k", split='train')
 
     # owt by default only contains the 'train' split, so create a test split
-    split_dataset = dataset["train"].train_test_split(test_size=0.0005, seed=2357, shuffle=True)
+    split_dataset = dataset["text"].train_test_split(test_size=0.0005, seed=2357, shuffle=True)
+    split_dataset['train'] = split_dataset.pop('text') 
     split_dataset['val'] = split_dataset.pop('test') # rename the test split to val
 
     
