@@ -1,3 +1,5 @@
+wd = Path(__file__).parent.parent.resolve()
+sys.path.append(str(wd))
 
 from pathlib import Path
 import sys
