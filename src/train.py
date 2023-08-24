@@ -21,7 +21,7 @@ from src.model import Block, Alphex, Config
 from src.utils import save_model_checkpoint
 
 
-out_dir = ""
+out_dir = "/"
 eval_interval = 2000
 eval_iters = 200
 log_interval = 1
