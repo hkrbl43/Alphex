@@ -1,5 +1,4 @@
-wd = Path(__file__).parent.parent.resolve()
-sys.path.append(str(wd))
+
 
 from pathlib import Path
 import sys
@@ -7,7 +6,8 @@ import os
 import time
 from functools import partial
 from typing import Tuple
-
+wd = Path(__file__).parent.parent.resolve()
+sys.path.append(str(wd))
 import lightning as L
 from lightning.fabric.strategies import FSDPStrategy
 
